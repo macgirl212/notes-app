@@ -7,22 +7,29 @@
 
 import UIKit
 
+protocol DetailViewControllerDelegate {
+    func updateNote(_ note: Note, _ newTitle: String, _ newBody: String, _ index: Int)
+    
+    func saveNote()
+}
+
 class DetailViewController: UIViewController {
     @IBOutlet var textBody: UITextView!
-    var noteTitle: String?
-    var noteBody: String?
+    var delegate: DetailViewControllerDelegate?
+    
+    var note: Note?
     var index: Int?
-    weak var delegate: ViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = noteTitle
-        textBody.text = noteBody
+        title = note?.title ?? "Untitled"
+        textBody.text = note?.body ?? ""
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.updateNote(updatedNoteTitle: title!, updatedNoteBody: textBody.text!, index: index ?? 0)
-        delegate?.save()
+        delegate?.updateNote(note!, title!, textBody.text!, index!)
+        
+        delegate?.saveNote()
     }
 }

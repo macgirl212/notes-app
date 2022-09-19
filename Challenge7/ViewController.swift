@@ -12,7 +12,7 @@ class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         title = "Notes"
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
@@ -42,8 +42,9 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
-            vc.noteTitle = notes[indexPath.row].title
-            vc.noteBody = notes[indexPath.row].body
+            vc.delegate = self
+            
+            vc.note = notes[indexPath.row]
             vc.index = indexPath.row
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -51,29 +52,23 @@ class ViewController: UITableViewController {
     
     @objc func addNote() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            let indexPath = IndexPath(row: 0, section: 0)
             let newNote = Note(title: "New Note", body: "")
-            vc.noteTitle = newNote.title
-            vc.noteBody = newNote.body
+            
             vc.delegate = self
+            
+            vc.note = newNote
+            vc.index = indexPath.row
+            
             navigationController?.pushViewController(vc, animated: true)
             
-            // new note is not saving -- fix later
             dismiss(animated: true, completion: { [weak self] in
                 self?.notes.insert(newNote, at: 0)
                 
-                let indexPath = IndexPath(row: 0, section: 0)
                 self?.tableView.insertRows(at: [indexPath], with: .automatic)
                 self?.tableView.reloadData()
             })
         }
-    }
-    
-    func updateNote(updatedNoteTitle: String, updatedNoteBody: String, index: Int) {
-        // this function is not calling for some reason...
-        notes[index].title = updatedNoteTitle
-        notes[index].body = updatedNoteBody
-        print(updatedNoteTitle, updatedNoteBody, index)
-        tableView.reloadData()
     }
     
     func save() {
@@ -85,6 +80,17 @@ class ViewController: UITableViewController {
         } else {
             print("Failed to save notes")
         }
+    }
+}
+
+extension ViewController: DetailViewControllerDelegate {
+    func updateNote(_ note: Note, _ newTitle: String, _ newBody: String, _ index: Int) {
+        notes[index].title = newTitle
+        notes[index].body = newBody
+    }
+    
+    func saveNote() {
+        save()
     }
 }
 

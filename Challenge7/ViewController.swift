@@ -35,8 +35,10 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Note", for: indexPath)
-        cell.textLabel?.text = notes[indexPath.row].title // textLabel will be depreciated soon
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let note = notes[indexPath.row]
+        cell.textLabel?.text = note.title // textLabel will be depreciated soon
+        cell.detailTextLabel?.text = note.body // detailTextLabel will be depreciated soon
         return cell
     }
     
@@ -47,6 +49,13 @@ class ViewController: UITableViewController {
             vc.note = notes[indexPath.row]
             vc.index = indexPath.row
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            notes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
@@ -87,6 +96,7 @@ extension ViewController: DetailViewControllerDelegate {
     func updateNote(_ note: Note, _ newTitle: String, _ newBody: String, _ index: Int) {
         notes[index].title = newTitle
         notes[index].body = newBody
+        tableView.reloadData()
     }
     
     func saveNote() {

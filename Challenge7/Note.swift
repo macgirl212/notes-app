@@ -10,6 +10,8 @@ import Foundation
 class Note: NSObject, Codable {
     var title: String
     var body: String
+    var createdDate = Date()
+    var updatedDate = Date()
     
     init(title: String, body: String) {
         self.title = title

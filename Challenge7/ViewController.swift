@@ -37,8 +37,12 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let note = notes[indexPath.row]
-        cell.textLabel?.text = note.title // textLabel will be depreciated soon
-        cell.detailTextLabel?.text = note.body // detailTextLabel will be depreciated soon
+        let noteDate = formatDate(notes[indexPath.row].updatedDate)
+        
+        var content = cell.defaultContentConfiguration()
+        content.text = note.title
+        content.secondaryText = "\(noteDate)  \(note.body)"      
+        cell.contentConfiguration = content
         return cell
     }
     
@@ -56,6 +60,8 @@ class ViewController: UITableViewController {
         if editingStyle == .delete {
             notes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            save()
         }
     }
     
@@ -80,6 +86,14 @@ class ViewController: UITableViewController {
         }
     }
     
+    func formatDate(_ date: Date) -> String {
+        let format = DateFormatter()
+        format.timeZone = .current
+        format.dateFormat = "MM/dd/yy h:mm a"
+        let dateString = format.string(from: date)
+        return dateString
+    }
+    
     func save() {
         let jsonEncoder = JSONEncoder()
         
@@ -94,8 +108,11 @@ class ViewController: UITableViewController {
 
 extension ViewController: DetailViewControllerDelegate {
     func updateNote(_ note: Note, _ newTitle: String, _ newBody: String, _ index: Int) {
+        let currentDate = Date()
+        
         notes[index].title = newTitle
         notes[index].body = newBody
+        notes[index].updatedDate = currentDate
         tableView.reloadData()
     }
     

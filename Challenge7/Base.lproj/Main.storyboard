@@ -18,21 +18,21 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="qwI-18-d2g" detailTextLabel="Atz-wC-P6H" style="IBUITableViewCellStyleSubtitle" id="2pn-Vs-69r">
-                                <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="50" width="390" height="57.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2pn-Vs-69r" id="sxV-nN-mlS">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="57.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qwI-18-d2g">
-                                            <rect key="frame" x="20.000000000000004" y="4" width="38.333333333333336" height="21.666666666666668"/>
+                                            <rect key="frame" x="20.000000000000004" y="10.666666666666666" width="38.333333333333336" height="21.666666666666668"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Atz-wC-P6H">
-                                            <rect key="frame" x="19.999999999999996" y="25.666666666666668" width="43.666666666666664" height="14.333333333333334"/>
+                                            <rect key="frame" x="19.999999999999996" y="32.666666666666671" width="43.666666666666664" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
@@ -61,9 +61,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aqp-CP-drc">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aqp-CP-drc">
                                 <rect key="frame" x="0.0" y="47" width="390" height="797"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -72,6 +71,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J9b-TF-eyO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aqp-CP-drc" firstAttribute="leading" secondItem="J9b-TF-eyO" secondAttribute="leading" id="2Bm-1Q-hyl"/>
+                            <constraint firstItem="aqp-CP-drc" firstAttribute="top" secondItem="J9b-TF-eyO" secondAttribute="top" id="R6w-dK-f2M"/>
+                            <constraint firstItem="aqp-CP-drc" firstAttribute="centerX" secondItem="0MQ-4N-NMx" secondAttribute="centerX" id="YWY-ac-SLB"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="aqp-CP-drc" secondAttribute="bottom" constant="-34" id="xjg-7K-NyI"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="textBody" destination="aqp-CP-drc" id="6Jx-Vt-5ZO"/>
